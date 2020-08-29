@@ -42,17 +42,36 @@ class HomeScreen extends StatelessWidget {
                   if (degrees >= 45 && degrees < 135) newDirection = Direction.RIGHT;
                   if (degrees >= 135 && degrees < 225) newDirection = Direction.DOWN;
                   if (degrees >= 225 && degrees < 315) newDirection = Direction.LEFT;
+                  if (distance == 0) newDirection = Direction.NONE;
 
-                  if (newDirection != homeScreenState.lastDirection) homeScreenState.setDirection(newDirection);
+                  if (newDirection != homeScreenState.lastDirection) {
+                    homeScreenState.setDirection(newDirection);
+                    if (Provider.of<BluetoothConnectionState>(context, listen: false).isConnected)
+                      Provider.of<BluetoothConnectionState>(context, listen: false).goTo(newDirection);
+                  }
                 },
               ),
             ),
-            Align(
-              alignment: AlignmentDirectional.centerEnd,
-              child: IconButton(
-                icon: Icon(Provider.of<BluetoothConnectionState>(context).isConnected ? Icons.bluetooth_connected : Icons.bluetooth_disabled),
-                onPressed: () => Navigator.of(context).pushNamed(BluetoothScreen.route),
-              ),
+            Row(
+              children: [
+                Row(
+                  children: [
+                    Switch(
+                      value: homeScreenState.autoMode,
+                      onChanged: (bool newValue) {
+                        homeScreenState.setAutoMode(newValue);
+                        Provider.of<BluetoothConnectionState>(context, listen: false).setAutoMode(homeScreenState.autoMode);
+                      },
+                    ),
+                    Text("Auto"),
+                  ],
+                ),
+                Spacer(),
+                IconButton(
+                  icon: Icon(Provider.of<BluetoothConnectionState>(context).isConnected ? Icons.bluetooth_connected : Icons.bluetooth_disabled),
+                  onPressed: () => Navigator.of(context).pushNamed(BluetoothScreen.route),
+                ),
+              ],
             ),
           ],
         ),
@@ -63,6 +82,13 @@ class HomeScreen extends StatelessWidget {
 
 class HomeScreenState extends ChangeNotifier {
   Direction lastDirection = Direction.NONE;
+  bool autoMode = true;
+
+  void setAutoMode(bool auto) {
+    this.autoMode = auto;
+
+    notifyListeners();
+  }
 
   void setDirection(Direction newDirection) {
     this.lastDirection = newDirection;

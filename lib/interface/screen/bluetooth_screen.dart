@@ -37,19 +37,34 @@ class BluetoothScreen extends StatelessWidget {
         if (bluetoothAvailabilitySnapshot.hasData) {
           if (bluetoothAvailabilitySnapshot.data) {
             return Consumer<BluetoothScreenState>(
-              builder: (BuildContext context, BluetoothScreenState bluetoothScreenState, Widget child) => ListView.builder(
-                itemCount: bluetoothScreenState.results.length,
-                // shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return BluetoothListTile(
-                    device: bluetoothScreenState.results.elementAt(index).device,
-                    rssi: bluetoothScreenState.results.elementAt(index).rssi,
-                    onTap: () async {
-                      await Provider.of<BluetoothConnectionState>(context, listen: false).connectToDevice(bluetoothScreenState.results.elementAt(index).device);
-                      bluetoothScreenState.startDiscovery();
-                    },
-                  );
-                },
+              builder: (BuildContext context, BluetoothScreenState bluetoothScreenState, Widget child) => Column(
+                children: [
+                  Provider.of<BluetoothConnectionState>(context).isConnected
+                      ? Column(
+                          children: [
+                            BluetoothListTile(device: Provider.of<BluetoothConnectionState>(context).connectedDevice),
+                            Divider(),
+                          ],
+                        )
+                      : Container(),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: bluetoothScreenState.results.length,
+                      // shrinkWrap: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        return BluetoothListTile(
+                          device: bluetoothScreenState.results.elementAt(index).device,
+                          rssi: bluetoothScreenState.results.elementAt(index).rssi,
+                          onTap: () async {
+                            await Provider.of<BluetoothConnectionState>(context, listen: false)
+                                .connectToDevice(bluetoothScreenState.results.elementAt(index).device);
+                            bluetoothScreenState.startDiscovery();
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
             );
           }
