@@ -37,9 +37,8 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "it.emiliodallatorre.tortobot.tortobot_controller_flutter"
-        minSdkVersion 16
+        applicationId "it.emiliodallatorre.tortobot.controller"
+        minSdkVersion 18
         targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
