@@ -1,10 +1,6 @@
 # Tortobot controller
 
-Un controller per 
-
-[tortobot]: http://greensystemtech.com/index.php/tortobot/
-
-, un robot basato sulla scheda Arduino e con un ricevitore bluetooth incorporato: la base perfetta per cominciare qualche esperimento con il bluetooth!
+Un controller per [tortobot](http://greensystemtech.com/index.php/tortobot/), un robot basato sulla scheda Arduino e con un ricevitore bluetooth incorporato: la base perfetta per cominciare qualche esperimento con il bluetooth!
 
 ## Introduzione
 
