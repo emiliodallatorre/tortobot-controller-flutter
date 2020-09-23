@@ -1,16 +1,13 @@
-# tortobot_controller_flutter
+# Tortobot controller
 
-A new Flutter application.
+Un controller per 
 
-## Getting Started
+[tortobot]: http://greensystemtech.com/index.php/tortobot/
 
-This project is a starting point for a Flutter application.
+, un robot basato sulla scheda Arduino e con un ricevitore bluetooth incorporato: la base perfetta per cominciare qualche esperimento con il bluetooth!
 
-A few resources to get you started if this is your first Flutter project:
+## Introduzione
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Il progetto è stato iniziato con `flutter master`, utilizza un plugin che va ad interfacciarsi con i controller locali del bluetooth.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+La dinamica di funzionamento è molto semplice: in seguito al collegamento via bluetooth a tortobot, l'app comincia ad inviare attraverso un monitor seriale i comandi che il robot interpreta e gestisce.
